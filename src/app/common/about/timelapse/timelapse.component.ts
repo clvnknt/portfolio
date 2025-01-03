@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-card-folder',
-  template:`
-    <li class="relative mb-6 sm:mb-0">
+  selector: 'app-timelapse',
+  template: `
+   <li class="relative mb-6 sm:mb-0">
         <div class="flex items-center">
             <div class="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
                 <svg class="w-2.5 h-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -13,13 +13,13 @@ import { Component } from '@angular/core';
             <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
         </div>
         <div class="mt-3 sm:pe-8">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Flowbite Library v1.0.0</h3>
-            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Released on December 2, 2021</time>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><ng-content select="[title]"></ng-content></h3>
+            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"><ng-content select="[date]"></ng-content></time>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400"><ng-content select="[description]"></ng-content></p>
         </div>
     </li>
-  `
+  `,
 })
-export class CardFolderComponent {
+export class TimelapseComponent {
 
 }

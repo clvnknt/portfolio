@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-certifications',
   template: `
   <app-container>
-    <app-main-heading>Certifications</app-main-heading>
+    <app-heading>Certifications</app-heading>
     <app-hr></app-hr>
   </app-container>
   `,
