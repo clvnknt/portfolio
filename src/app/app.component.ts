@@ -8,15 +8,16 @@ import { initFlowbite } from 'flowbite';
     <div class="m-5 pl-5">
       <app-intro></app-intro>
       <app-about></app-about>
-      <app-certifcations></app-certifcations>
       <app-projects></app-projects>
+      <app-certifications></app-certifications>
       <app-contact></app-contact>
+      <app-footer></app-footer>
     </div>
-    <app-footer></app-footer>
   `,
 })
 export class AppComponent {
   title = 'portfolio';
+
 
   ngOnInit(): void {
     initFlowbite();

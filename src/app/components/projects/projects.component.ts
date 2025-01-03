@@ -3,7 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-projects',
   template: `
-  <h1>Projects</h1>
+  <app-container>
+    <app-main-heading>Projects</app-main-heading>
+    <app-hr></app-hr>
+  </app-container>
 
   `
 })
