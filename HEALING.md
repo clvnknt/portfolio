@@ -4,21 +4,28 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ## Open Issues
 
-### 1. Placeholder branding
+### 1. Placeholder project details
 
-- **Symptom:** Navbar shows the Flowbite logo and name. Footer says "© 2023 Flowbite™" and its links point to `#`.
-- **Fix:** Replace with your own name/logo in `src/components/layout/navbar.tsx` and `footer.tsx`. Point footer links at section anchors.
+- **Symptom:** Projects have no repo links, live demos, or screenshots. Contact is empty. No `resumeUrl` in the profile.
+- **Fix:** Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add contact details to `src/components/sections/contact.tsx`. Add `resumeUrl` to `src/data/profile.ts` with the PDF in `public/`.
 
-### 2. Placeholder content
+### 2. Incomplete timeline dates
 
-- **Symptom:** Projects show hotlinked "coming soon" images. Contact is empty. Intro has no name or role (so the page has no `h1`). Certifications is hidden because its data is empty.
-- **Fix:** Fill `src/data/projects.ts` and `src/data/certifications.ts`. Add contact details to `src/components/sections/contact.tsx`. Add name/role to the intro as the page's `h1`.
-
-### 3. Incomplete timeline dates
-
-- `src/data/experience.ts`: only the first entry has a date (`2015-2024`).
+- `src/data/experience.ts`: the Junior High School (`2014-2018`) and Senior High School (`2018-2020`) dates are inferred from the college start date (Aug 2020), not from records. Confirm them.
 
 ## Fixed
+
+### LinkedIn export with a phone number served from `public/`
+
+- `Profile.pdf` was in `public/`, so it shipped at `/Profile.pdf`. It now lives outside the repo (`~/personal/private/`). Keep personal exports out of `public/`; use a resume without a phone number for `resumeUrl`.
+
+### Hidden certifications and "Your Name" placeholder (`feat/hero-projects`)
+
+- Six certifications added in `src/data/certifications.ts`, shown as thumbnails that expand in a dialog (PDFs and WebP previews in `public/certificates/`). Name, role, email, and timeline entries filled from the LinkedIn profile.
+
+### Placeholder Flowbite branding and hotlinked images (`feat/hero-projects`)
+
+- Navbar logo, "© 2023 Flowbite™" footer, and footer `#` links replaced by the profile name and GitHub link. Hotlinked "coming soon" images replaced by real project cards.
 
 ### Inconsistent design (`redesign`)
 

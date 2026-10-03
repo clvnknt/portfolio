@@ -1,27 +1,17 @@
+import GithubIcon from "@/components/icons/github-icon";
 import Container from "@/components/ui/container";
-
-const footerLinks = ["About", "Privacy Policy", "Licensing", "Contact"];
+import { PROFILE } from "@/data/profile";
 
 export default function Footer() {
   return (
     <footer className="border-t border-border py-8">
-      <Container className="flex flex-col gap-4 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+      <Container className="flex items-center justify-between text-sm text-muted-foreground">
         <span>
-          © 2023{" "}
-          <a href="https://flowbite.com/" className="hover:text-foreground">
-            Flowbite™
-          </a>
-          . All Rights Reserved.
+          © {new Date().getFullYear()} {PROFILE.name}
         </span>
-        <ul className="flex flex-wrap gap-x-6 gap-y-2">
-          {footerLinks.map((label) => (
-            <li key={label}>
-              <a href="#" className="hover:text-foreground">
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <a href={PROFILE.githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub" className="transition-colors hover:text-foreground">
+          <GithubIcon className="size-5" />
+        </a>
       </Container>
     </footer>
   );
