@@ -1,13 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
-import { EXPERIENCE } from "@/data/experience";
+import { PROFILE } from "@/data/profile";
+import { SKILLS } from "@/data/skills";
 import About from "./about";
 
-test("renders one timeline item per experience entry", () => {
+test("renders the bio paragraphs and one badge per skill", () => {
   render(<About />);
 
-  expect(screen.getAllByRole("listitem")).toHaveLength(EXPERIENCE.length);
-  for (const entry of EXPERIENCE) {
-    expect(screen.getByText(entry.title)).toBeTruthy();
+  for (const paragraph of PROFILE.bio) {
+    expect(screen.getByText(paragraph)).toBeTruthy();
+  }
+  expect(screen.getAllByRole("listitem")).toHaveLength(SKILLS.length);
+  for (const skill of SKILLS) {
+    expect(screen.getByText(skill)).toBeTruthy();
   }
 });
