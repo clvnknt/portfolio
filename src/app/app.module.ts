@@ -1,40 +1,43 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './common/main-layout/navbar/navbar.component';
-import { ContainerComponent } from './common/main-layout/container/container.component';
-import { HeadingComponent } from './common/main-layout/heading/heading.component';
-import { HrComponent } from './common/main-layout/hr/hr.component';
-import { FooterComponent } from './common/main-layout/footer/footer.component';
-import { IntroComponent } from './components/intro/intro.component';
-import { AboutComponent } from './components/about/about.component';
-import { ProjectsComponent } from './components/projects/projects.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { CertificationsComponent } from './components/certifications/certifications.component';
-import { ImageContainerComponent } from './common/projects/image-container/image-container.component';
-import { TimelapseComponent } from './common/about/timelapse/timelapse.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { ContainerComponent } from './shared/container/container.component';
+import { HeadingComponent } from './shared/heading/heading.component';
+import { HrComponent } from './shared/hr/hr.component';
+import { SectionComponent } from './shared/section/section.component';
+import { IntroComponent } from './sections/intro/intro.component';
+import { AboutComponent } from './sections/about/about.component';
+import { TimelineItemComponent } from './sections/about/timeline-item/timeline-item.component';
+import { ProjectsComponent } from './sections/projects/projects.component';
+import { ImageContainerComponent } from './sections/projects/image-container/image-container.component';
+import { CertificationsComponent } from './sections/certifications/certifications.component';
+import { ContactComponent } from './sections/contact/contact.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    // layout
     NavbarComponent,
     FooterComponent,
-    AboutComponent,
-    ProjectsComponent,
-    ContactComponent,
-    IntroComponent,
+    // shared
     ContainerComponent,
-    HrComponent,
-    CertificationsComponent,
     HeadingComponent,
+    HrComponent,
+    SectionComponent,
+    // sections
+    IntroComponent,
+    AboutComponent,
+    TimelineItemComponent,
+    ProjectsComponent,
     ImageContainerComponent,
-    TimelapseComponent,
+    CertificationsComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

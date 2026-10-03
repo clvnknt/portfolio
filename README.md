@@ -64,23 +64,25 @@ portfolio/
 │   │   └── images/             # Static images (profile photo, etc.)
 │   └── app/
 │       ├── app.module.ts       # Declares every component
-│       ├── app-routing.module.ts
-│       ├── app.component.ts    # Root layout: stacks all page sections, theme toggle logic
-│       ├── common/             # Reusable building blocks, grouped by where they are used
-│       │   ├── main-layout/
-│       │   │   ├── navbar/     # <app-navbar>    top navigation
-│       │   │   ├── footer/     # <app-footer>    page footer
-│       │   │   ├── container/  # <app-container> card wrapper (ng-content)
-│       │   │   ├── heading/    # <app-heading>   section title (ng-content)
-│       │   │   └── hr/         # <app-hr>        section divider
-│       │   ├── about/
-│       │   │   └── timelapse/  # <app-timelapse> timeline entry (title/date/description slots)
-│       │   └── projects/
-│       │       └── image-container/  # <app-image-container [src]> project card
-│       └── components/         # Page sections, rendered in this order
-│           ├── intro/          # <app-intro>          profile photo / hero
-│           ├── about/          # <app-about>          education timeline
-│           ├── projects/       # <app-projects>       project grid
+│       ├── app.component.ts    # Root layout: stacks all page sections
+│       ├── core/
+│       │   └── theme.service.ts      # Dark/light mode state + persistence
+│       ├── models/             # TypeScript interfaces for content (Project, TimelineEntry, Certification)
+│       ├── data/               # Site content as typed arrays (projects, experience, certifications)
+│       ├── layout/
+│       │   ├── navbar/         # <app-navbar>  top navigation + theme toggle
+│       │   └── footer/         # <app-footer>  page footer
+│       ├── shared/             # Reusable building blocks used by several sections
+│       │   ├── section/        # <app-section heading="..."> section frame (container + heading + hr)
+│       │   ├── container/      # <app-container> card wrapper (ng-content)
+│       │   ├── heading/        # <app-heading>   section title (ng-content)
+│       │   └── hr/             # <app-hr>        section divider
+│       └── sections/           # Page sections, rendered in this order
+│           ├── intro/          # <app-intro>   profile photo / hero
+│           ├── about/          # <app-about>   education timeline
+│           │   └── timeline-item/      # <app-timeline-item [entry]>
+│           ├── projects/       # <app-projects> project grid
+│           │   └── image-container/    # <app-image-container [src]> project card
 │           ├── certifications/ # <app-certifications>
 │           └── contact/        # <app-contact>
 ├── angular.json                # CLI workspace config
@@ -92,30 +94,32 @@ portfolio/
 ### Conventions
 
 - Components use **inline templates** (`template:`), no separate `.html`/`.css` files.
-- `components/` holds page sections. `common/` holds reusable pieces, grouped by the section that owns them (`main-layout`, `about`, `projects`).
+- **Content lives in `data/`**, typed by `models/`. Sections loop over it with `*ngFor`. To add a project, timeline entry, or certification, edit the matching file in `data/`. No template change needed.
+- `sections/` holds page sections. A component used by only one section lives inside that section's folder. Components used by several sections live in `shared/`. Navbar and footer live in `layout/`.
+- App-wide services live in `core/`.
 - Every component is declared in `app.module.ts`.
-- Styling is Tailwind utility classes only. Dark mode uses the `dark` class on `<html>`.
+- Styling is Tailwind utility classes only. Dark mode uses the `dark` class on `<html>`, managed by `ThemeService`.
+- Navigation is in-page anchors (`href="#id"`). There is no router.
 
 ## Adding a Section
 
 1. Generate the component:
 
    ```bash
-   npx ng generate component components/<name> --inline-template --inline-style --skip-tests=false
+   npx ng generate component sections/<name> --inline-template --inline-style
    ```
 
-2. Wrap content with the shared layout pieces:
+2. Wrap content in the shared section frame. The `id` is the scroll target:
 
    ```html
-   <app-container>
-     <app-heading id="<name>">Title</app-heading>
-     <app-hr></app-hr>
+   <app-section id="<name>" heading="Title">
      <!-- content -->
-   </app-container>
+   </app-section>
    ```
 
-3. Add `<app-<name>>` to the template in `app.component.ts`.
-4. Add a navbar link with `href="#<name>"`.
+3. If the section shows a list, add a model in `models/` and the content in `data/`.
+4. Add `<app-<name>>` to the template in `app.component.ts`.
+5. Add a navbar link with `href="#<name>"`.
 
 ## Build & Deploy
 

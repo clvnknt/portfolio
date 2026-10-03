@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TimelineEntry } from '../../../models/timeline-entry';
 
 @Component({
-  selector: 'app-timelapse',
+  selector: 'app-timeline-item',
   template: `
    <li class="relative mb-6 sm:mb-0">
         <div class="flex items-center">
@@ -13,13 +14,13 @@ import { Component } from '@angular/core';
             <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
         </div>
         <div class="mt-3 sm:pe-8">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><ng-content select="[title]"></ng-content></h3>
-            <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500"><ng-content select="[date]"></ng-content></time>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400"><ng-content select="[description]"></ng-content></p>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ entry.title }}</h3>
+            <time *ngIf="entry.date" class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ entry.date }}</time>
+            <p *ngIf="entry.description" class="text-base font-normal text-gray-500 dark:text-gray-400">{{ entry.description }}</p>
         </div>
     </li>
   `,
 })
-export class TimelapseComponent {
-
+export class TimelineItemComponent {
+  @Input({ required: true }) entry!: TimelineEntry;
 }
