@@ -11,14 +11,19 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ### 2. Placeholder content
 
-- **Symptom:** Projects show hotlinked "coming soon" images. Certifications and Contact are empty.
-- **Fix:** Fill `src/data/projects.ts` and `src/data/certifications.ts`. Add contact details to `src/components/sections/contact.tsx`.
+- **Symptom:** Projects show hotlinked "coming soon" images. Contact is empty. Intro has no name or role (so the page has no `h1`). Certifications is hidden because its data is empty.
+- **Fix:** Fill `src/data/projects.ts` and `src/data/certifications.ts`. Add contact details to `src/components/sections/contact.tsx`. Add name/role to the intro as the page's `h1`.
 
 ### 3. Incomplete timeline dates
 
 - `src/data/experience.ts`: only the first entry has a date (`2015-2024`).
 
 ## Fixed
+
+### Inconsistent design (`redesign`)
+
+- **Was:** Page background stayed white in dark mode (no `body` background). Debug borders (`border-black`, `border-red-500`), cards nested in cards, mismatched widths (`m-5 pl-5` vs. navbar `max-w-screen-xl`), every heading an `h1`, mixed palette colors.
+- **Fix:** Design tokens in `globals.css` with light/dark values and a `body` background. Shared `Container`. Sections use spacing and `h2` instead of cards. `Card` only for project items. Geist font.
 
 ### Angular → Next.js migration (`migrate/nextjs`)
 

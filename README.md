@@ -61,7 +61,7 @@ portfolio/
 │   ├── app/
 │   │   ├── layout.tsx          # <html> shell, metadata, theme init script
 │   │   ├── page.tsx            # The page: stacks all sections in order
-│   │   ├── globals.css         # Tailwind import + dark-mode variant
+│   │   ├── globals.css         # Tailwind import, design tokens, dark-mode variant
 │   │   └── favicon.ico
 │   ├── components/
 │   │   ├── layout/
@@ -69,8 +69,9 @@ portfolio/
 │   │   │   ├── theme-toggle.tsx
 │   │   │   └── footer.tsx
 │   │   ├── ui/                 # Reusable building blocks
-│   │   │   ├── section.tsx     # <Section id heading> frame: card + heading + divider
-│   │   │   └── card.tsx
+│   │   │   ├── section.tsx     # <Section id heading>: spacing + h2 + shared width
+│   │   │   ├── container.tsx   # Shared max width + side padding
+│   │   │   └── card.tsx        # Bordered surface for list items (projects)
 │   │   └── sections/           # Page sections, rendered in this order
 │   │       ├── intro.tsx
 │   │       ├── about/          # about.tsx + timeline-item.tsx
@@ -95,7 +96,9 @@ portfolio/
 - A component used by one section lives in that section's folder. Components used by several sections live in `components/ui/`.
 - File names are kebab-case. Components are default exports in PascalCase.
 - Import from `src/` with the `@/` alias.
-- Styling is Tailwind utility classes only. Dark mode is the `dark` class on `<html>`.
+- Styling is Tailwind utility classes only, using the design tokens in `globals.css` (`bg-background`, `bg-surface`, `text-foreground`, `text-muted`, `border-border`, `bg-accent`). Do not use raw palette colors like `gray-800`.
+- Dark mode is the `dark` class on `<html>`. Tokens switch automatically, so `dark:` variants are rarely needed.
+- Layout: wrap content in `<Container>` so every edge lines up. Only the hero has an `h1`; sections use `h2` via `<Section>`.
 - Tests sit next to the code they test as `*.test.ts(x)`.
 
 ## Adding a Section
