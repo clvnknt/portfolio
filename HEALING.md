@@ -4,21 +4,24 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ## Open Issues
 
-### 1. Placeholder branding
+### 1. Placeholder profile and project details
 
-- **Symptom:** Navbar shows the Flowbite logo and name. Footer says "© 2023 Flowbite™" and its links point to `#`.
-- **Fix:** Replace with your own name/logo in `src/components/layout/navbar.tsx` and `footer.tsx`. Point footer links at section anchors.
+- **Symptom:** Navbar, hero `h1`, and footer show "Your Name". Projects have no repo links, live demos, or screenshots. Contact is empty.
+- **Fix:** Fill `src/data/profile.ts` (name, and optionally `email`, `linkedinUrl`, `resumeUrl` with the PDF in `public/`). Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add contact details to `src/components/sections/contact.tsx`.
 
-### 2. Placeholder content
+### 2. Certifications hidden
 
-- **Symptom:** Projects show hotlinked "coming soon" images. Contact is empty. Intro has no name or role (so the page has no `h1`). Certifications is hidden because its data is empty.
-- **Fix:** Fill `src/data/projects.ts` and `src/data/certifications.ts`. Add contact details to `src/components/sections/contact.tsx`. Add name/role to the intro as the page's `h1`.
+- The section renders nothing while `src/data/certifications.ts` is empty.
 
 ### 3. Incomplete timeline dates
 
 - `src/data/experience.ts`: only the first entry has a date (`2015-2024`).
 
 ## Fixed
+
+### Placeholder Flowbite branding and hotlinked images (`feat/hero-projects`)
+
+- Navbar logo, "© 2023 Flowbite™" footer, and footer `#` links replaced by the profile name and GitHub link. Hotlinked "coming soon" images replaced by real project cards.
 
 ### Inconsistent design (`redesign`)
 

@@ -1,15 +1,17 @@
 import Section from "@/components/ui/section";
 import { PROJECTS } from "@/data/projects";
-import ImageContainer from "./image-container";
+import ProjectCard from "./project-card";
 
 export default function Projects() {
   return (
     <Section id="projects" heading="Projects">
-      <div className="grid gap-6 sm:grid-cols-2">
-        {PROJECTS.map((project, i) => (
-          <ImageContainer key={i} src={project.imageUrl} />
+      <ul className="grid gap-6 md:grid-cols-2">
+        {PROJECTS.map((project) => (
+          <li key={project.title}>
+            <ProjectCard project={project} />
+          </li>
         ))}
-      </div>
+      </ul>
     </Section>
   );
 }

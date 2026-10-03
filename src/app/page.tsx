@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/navbar";
 import About from "@/components/sections/about/about";
 import Certifications from "@/components/sections/certifications";
 import Contact from "@/components/sections/contact";
-import Intro from "@/components/sections/intro";
+import Hero from "@/components/sections/hero";
 import Projects from "@/components/sections/projects/projects";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Navbar />
       <main>
-        <Intro />
+        <Hero />
         <About />
         <Projects />
         <Certifications />

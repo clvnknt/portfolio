@@ -11,8 +11,8 @@ export default function Certifications() {
         {CERTIFICATIONS.map((cert) => (
           <li key={cert.name}>
             <span className="font-semibold">{cert.name}</span>
-            {cert.issuer && <span className="text-muted"> · {cert.issuer}</span>}
-            {cert.date && <span className="text-sm text-muted"> ({cert.date})</span>}
+            {cert.issuer && <span className="text-muted-foreground"> · {cert.issuer}</span>}
+            {cert.date && <span className="text-sm text-muted-foreground"> ({cert.date})</span>}
           </li>
         ))}
       </ul>
