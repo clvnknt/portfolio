@@ -11,7 +11,7 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ### 2. Incomplete timeline dates
 
-- `src/data/experience.ts`: the Junior High School date (`2015-2024`) overlaps college (Aug 2020 - Jul 2024) and is probably wrong. Senior High School (`2018-2020`) is inferred from the college start date.
+- `src/data/experience.ts`: the Junior High School (`2014-2018`) and Senior High School (`2018-2020`) dates are inferred from the college start date (Aug 2020), not from records. Confirm them.
 
 ## Fixed
 
