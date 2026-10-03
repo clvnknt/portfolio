@@ -12,7 +12,7 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 ### 2. Draft About bio and bare experience entries
 
 - `bio` in `src/data/profile.ts` is a draft built from LinkedIn and the project data. Rewrite it in your own voice.
-- `src/data/timeline.ts`: entries have no `description` yet. `auf.png` and `boomering.png` must be added to `public/images/logos/` (the test fails until they exist).
+- `src/data/timeline.ts`: the AUF entry has no `description` or `highlights` yet.
 
 ## Fixed
 

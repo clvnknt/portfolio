@@ -41,7 +41,7 @@ Run `npm run lint`, `npm test`, and `npm run build` before committing.
 - Layout: everything sits inside `<Container>`. Sections are separated by spacing and a top border, not cards. Use shadcn `Card` only for repeated items (projects). Use `Button` (with `asChild` for links) and `Badge` instead of hand-styled equivalents. One `h1` per page (hero); section headings are `h2`.
 - Font is Geist via `next/font` (`--font-sans`).
 - `shadcn init` rewrites `globals.css` and `layout.tsx`. If you re-run it, restore our token values and the theme script afterwards.
-- Never name the internship company behind ShiftSync anywhere on the site.
+- Work for Boomering and Cloudstaff is confidential. The employer names may appear on the site (timeline and bio). Never name the internal project, the client or its industry, the vendor or platform, feature names, or coworkers, and describe the work generically (see `TIMELINE` in `src/data/timeline.ts`). Do not tie the ShiftSync project card to Cloudstaff in its text. Source work records live outside the repo; do not put them in `public/`.
 - Theme-dependent UI must render the same on server and client. Use `dark:` classes (see `theme-toggle.tsx`), not JS state read from `localStorage`.
 - Use `next/image` for images. Local images go in `public/images/`.
 - Static export limits: no API routes, server actions, cookies, redirects/rewrites, or default image optimization.
