@@ -7,46 +7,45 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 ### 1. Intro profile photo is broken
 
 - **Symptom:** Broken image icon in the intro section.
-- **Cause:** `src/app/components/intro/intro.component.ts` references `assets/images/test-formal.jpg`. The file on disk is `src/assets/images/me-formal.jpg`.
+- **Cause:** `src/app/sections/intro/intro.component.ts` references `assets/images/test-formal.jpg`. The file on disk is `src/assets/images/me-formal.jpg`.
 - **Fix:** Change the `src` to `assets/images/me-formal.jpg`.
 
-### 2. Dark mode does not apply on page load
-
-- **Symptom:** A saved `color-theme=dark` in `localStorage` (or an OS dark preference) does not darken the page after reload.
-- **Cause:** `AppComponent.ngOnInit` only toggles the icon visibility. It never adds the `dark` class to `<html>` on load. The toggle button is also commented out in `navbar.component.ts`, so the click handler never attaches.
-- **Fix:**
-  1. In `ngOnInit`, add `document.documentElement.classList.add('dark')` inside the dark-mode branch.
-  2. Uncomment the `#theme-toggle` button in `navbar.component.ts`.
-  3. Optional: move the theme logic into a `ThemeService` instead of raw DOM queries.
-
-### 3. Navbar links do not scroll to sections
-
-- **Symptom:** "About" and "Projects" links do nothing.
-- **Cause:** Those links use `href="#"`. The About heading uses `class="#about"` instead of an `id`. Projects heading has no `id`.
-- **Fix:** Set `id="about"` and `id="projects"` on the headings. Set navbar hrefs to `#about` and `#projects`.
-
-### 4. Routing module is unused
-
-- **Symptom:** None visible. The route `'' -> IntroComponent` never renders through the router.
-- **Cause:** `app.component.ts` has no `<router-outlet>`. All sections are rendered directly. `AboutComponent` is imported but unused in `app-routing.module.ts`.
-- **Fix:** Either remove the route (anchor-scroll SPA) or add `<router-outlet>` and move sections into routes. Do not do both: `IntroComponent` would render twice.
-
-### 5. Unit tests log "is not a known element"
+### 2. Unit tests log "is not a known element"
 
 - **Symptom:** `npm test` logs errors such as `'app-container' is not a known element`.
 - **Cause:** Each spec declares only its own component, but templates use child components.
 - **Fix:** Add the child components to `declarations` in each spec, or add `schemas: [CUSTOM_ELEMENTS_SCHEMA]` to `TestBed.configureTestingModule`.
 
-### 6. Placeholder Flowbite branding
+### 3. Placeholder Flowbite branding
 
 - **Symptom:** Navbar shows the Flowbite logo and name. Footer says "© 2023 Flowbite™".
 - **Fix:** Replace with your own name/logo in `navbar.component.ts` and `footer.component.ts`. Point footer links to real section anchors.
 
-### 7. Minor code hygiene
+### 4. Minor code hygiene
 
-- `AppComponent` defines `ngOnInit` without `implements OnInit`. Add it for type safety.
-- Image URLs in `projects.component.ts` end with a trailing space. Trim them.
-- `about.component.ts`: the first timeline entry has a date (`2015-2024`); the other entries have none.
+- `data/experience.ts`: the first timeline entry has a date (`2015-2024`); the other entries have none.
+
+## Fixed
+
+### Dark mode did not apply on page load (fixed in `refactor/structure`)
+
+- **Was:** `AppComponent` toggled icons only and never set `dark` on `<html>`. The toggle button was commented out.
+- **Fix:** `core/theme.service.ts` applies the class on startup and on toggle. The navbar button calls `theme.toggle()`.
+
+### Navbar links did not scroll to sections (fixed in `refactor/structure`)
+
+- **Was:** About/Projects links used `href="#"`. About heading had `class="#about"` instead of an id.
+- **Fix:** Every section uses `<app-section id="...">`. Navbar links point to `#about`, `#projects`, `#contact`.
+
+### Unused routing module (fixed in `refactor/structure`)
+
+- **Was:** `app-routing.module.ts` defined a route but there was no `<router-outlet>`.
+- **Fix:** Removed the routing module. Navigation is anchor-only.
+
+### Minor hygiene (fixed in `refactor/structure`)
+
+- `AppComponent` now declares `implements OnInit`.
+- Project image URLs moved to `data/projects.ts` without trailing spaces.
 
 ## General Recovery Steps
 
