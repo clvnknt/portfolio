@@ -1,6 +1,8 @@
-import { ArrowRight, FileText, Mail } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import Image from "next/image";
 import GithubIcon from "@/components/icons/github-icon";
+import GmailIcon from "@/components/icons/gmail-icon";
+import LinkedinIcon from "@/components/icons/linkedin-icon";
 import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { PROFILE } from "@/data/profile";
@@ -35,14 +37,14 @@ export default function Hero() {
             {PROFILE.email && (
               <Button size="lg" variant="outline" asChild>
                 <a href={`mailto:${PROFILE.email}`}>
-                  <Mail data-icon="inline-start" /> Email
+                  <GmailIcon data-icon="inline-start" className="size-4" /> Email
                 </a>
               </Button>
             )}
             {PROFILE.linkedinUrl && (
               <Button size="lg" variant="outline" asChild>
                 <a href={PROFILE.linkedinUrl} target="_blank" rel="noreferrer">
-                  LinkedIn
+                  <LinkedinIcon data-icon="inline-start" className="size-4" /> LinkedIn
                 </a>
               </Button>
             )}

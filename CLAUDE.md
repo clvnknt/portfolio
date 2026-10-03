@@ -28,7 +28,7 @@ Run `npm run lint`, `npm test`, and `npm run build` before committing.
 - `src/app/layout.tsx` holds metadata and an inline script (`THEME_INIT_SCRIPT` from `src/lib/theme.ts`) that sets the `dark` class before first paint.
 - `src/components/sections/` = page sections. A child used by one section lives inside that section's folder.
 - `src/components/ui/` = shadcn/ui components (`Button`, `Card`, `Badge`, `Dialog`; added via `npx shadcn@latest add`) plus our `Section` (`id` anchor + spacing + `h2`), `Container` (max width + side padding).
-- `src/components/icons/` = brand icons lucide doesn't ship (GitHub).
+- `src/components/icons/` = brand icons lucide doesn't ship (GitHub, LinkedIn, Gmail).
 - `src/components/layout/` = `Navbar` (client: mobile menu state), `ThemeToggle` (client), `Footer`.
 - `src/data/` = content (`PROFILE` incl. the About `bio`, `SKILLS`, `TIMELINE`, `PROJECTS`, `CERTIFICATIONS`, `NAV_LINKS`). Navbar, hero, and footer read the name/links from `PROFILE`. `src/types/` = their interfaces.
 - No routes besides `/`. Navigation is in-page anchors (`href="#id"`) targeting each `<Section id>`.
