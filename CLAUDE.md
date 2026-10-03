@@ -24,7 +24,7 @@ Run `npm run lint`, `npm test`, and `npm run build` before committing.
 
 ## Architecture
 
-- `src/app/page.tsx` is the whole site. It renders: Navbar, Hero, About, Education & Experience, Projects, Certifications, Contact, Footer.
+- `src/app/page.tsx` is the whole site. It renders: Navbar, Hero, About, Education & Experience, Projects, Certifications, Footer. There is no Contact section; the hero buttons (email, LinkedIn, GitHub) are the contact path.
 - `src/app/layout.tsx` holds metadata and an inline script (`THEME_INIT_SCRIPT` from `src/lib/theme.ts`) that sets the `dark` class before first paint.
 - `src/components/sections/` = page sections. A child used by one section lives inside that section's folder.
 - `src/components/ui/` = shadcn/ui components (`Button`, `Card`, `Badge`, `Dialog`; added via `npx shadcn@latest add`) plus our `Section` (`id` anchor + spacing + `h2`), `Container` (max width + side padding).
