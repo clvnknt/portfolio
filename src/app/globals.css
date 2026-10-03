@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Dark mode follows the `dark` class on <html>, set by THEME_INIT_SCRIPT and ThemeToggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}

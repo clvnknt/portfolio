@@ -1,46 +1,46 @@
+@AGENTS.md
+
 # CLAUDE.md
 
 Guidance for Claude Code when working in this repository.
 
 ## Project
 
-Personal portfolio. Angular 16.2 single-page app, NgModule-based (not standalone components). Styled with Tailwind CSS 3.4 and the Flowbite plugin. Tests use Karma + Jasmine.
+Personal portfolio. Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS 4, built as a static export (`output: "export"` in `next.config.ts`). Tests use Vitest + React Testing Library.
+
+`AGENTS.md` is managed by `next dev` (it re-adds its block). Do not put project notes there.
 
 ## Commands
 
 ```bash
-npm install        # install deps
-npm start          # dev server at http://localhost:4200
-npm run build      # production build -> dist/portfolio/
-npm test           # Karma unit tests (needs Chrome)
-npx ng test --watch=false --browsers=ChromeHeadless   # single headless run
+npm install          # install deps
+npm run dev          # dev server at http://localhost:3000
+npm run build        # static build -> out/
+npm run lint         # ESLint
+npm test             # Vitest, single run
 ```
+
+Run `npm run lint`, `npm test`, and `npm run build` before committing.
 
 ## Architecture
 
-- `src/app/app.component.ts` is the whole page. It renders every section in order: navbar, intro, about, projects, certifications, contact, footer. It runs `initFlowbite()`.
-- `src/app/sections/` = page sections, one folder per section. A child component used only by that section lives inside it (`about/timeline-item/`, `projects/image-container/`).
-- `src/app/shared/` = pieces used by several sections: `app-section` (frame: container + heading + hr), `app-container`, `app-heading`, `app-hr`.
-- `src/app/layout/` = `app-navbar` (links + theme toggle), `app-footer`.
-- `src/app/core/theme.service.ts` = dark mode state. Toggles `dark` on `<html>`, persists to `localStorage['color-theme']`, falls back to OS preference.
-- `src/app/data/` = site content as typed arrays (`EXPERIENCE`, `PROJECTS`, `CERTIFICATIONS`). `src/app/models/` = their interfaces.
-- No router. Navigation is in-page anchors (`href="#id"`) targeting the `id` on each `<app-section>`.
+- `src/app/page.tsx` is the whole site. It renders: Navbar, Intro, About, Projects, Certifications, Contact, Footer.
+- `src/app/layout.tsx` holds metadata and an inline script (`THEME_INIT_SCRIPT` from `src/lib/theme.ts`) that sets the `dark` class before first paint.
+- `src/components/sections/` = page sections. A child used by one section lives inside that section's folder.
+- `src/components/ui/` = shared pieces: `Section` (frame with `id` anchor + heading + divider), `Card`.
+- `src/components/layout/` = `Navbar` (client: mobile menu state), `ThemeToggle` (client), `Footer`.
+- `src/data/` = content (`EXPERIENCE`, `PROJECTS`, `CERTIFICATIONS`, `NAV_LINKS`). `src/types/` = their interfaces.
+- No routes besides `/`. Navigation is in-page anchors (`href="#id"`) targeting each `<Section id>`.
 
 ## Conventions
 
-- Inline templates only (`template:` in the `@Component` decorator). Do not add separate `.html` or `.css` files.
-- Content changes go in `data/`, not templates. Add fields to the interface in `models/` first.
-- Tailwind utility classes for all styling. Always add `dark:` variants for colors; dark mode is `darkMode: 'class'`.
-- New components must be declared in `app.module.ts`.
-- New sections: wrap in `<app-section id="..." heading="...">`, add to `app.component.ts`, link from the navbar.
-- Component used by one section goes inside that section's folder. Used by several goes in `shared/`. App-wide services go in `core/`.
-- Static images go in `src/assets/images/` and are referenced as `assets/images/<file>`.
-- Keep each component's `.spec.ts` next to it.
-
-## Gotchas
-
-- Angular 16 officially supports Node 16/18. Node 20 works with a warning.
-- Specs declare only the component under test. Child selectors (`app-container`, etc.) log "is not a known element" errors. Add the child components to `declarations` or use `CUSTOM_ELEMENTS_SCHEMA`.
-- `initFlowbite()` must run for Flowbite JS widgets (navbar collapse, etc.) to work.
+- Server Components by default. Add `"use client"` only for state, effects, or event handlers.
+- Content changes go in `src/data/`, not components. Update the interface in `src/types/` first.
+- Tailwind utilities only. Always add `dark:` variants for colors. Dark mode is class-based (`@custom-variant dark` in `globals.css`).
+- Theme-dependent UI must render the same on server and client. Use `dark:` classes (see `theme-toggle.tsx`), not JS state read from `localStorage`.
+- Use `next/image` for images. Local images go in `public/images/`.
+- Static export limits: no API routes, server actions, cookies, redirects/rewrites, or default image optimization.
+- Kebab-case file names, default-exported PascalCase components, `@/` imports.
+- Tests go next to the code as `*.test.ts(x)`.
 
 Known bugs and fixes live in [HEALING.md](./HEALING.md). Update it when you fix or find one.
