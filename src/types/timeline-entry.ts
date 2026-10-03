@@ -5,6 +5,8 @@ export interface TimelineEntry {
   organization: string;
   date?: string;
   description?: string;
+  /** Short accomplishments, rendered as a bullet list under the description. */
+  highlights?: string[];
   /** Path to a local image under public/images/logos/. Falls back to a monogram. */
   logo?: string;
 }

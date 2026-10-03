@@ -39,6 +39,13 @@ export default function TimelineItem({ entry }: { entry: TimelineEntry }) {
         <p className="text-muted-foreground">{entry.organization}</p>
         {entry.date && <time className="mt-1 block text-sm text-muted-foreground">{entry.date}</time>}
         {entry.description && <p className="mt-2 leading-relaxed text-muted-foreground">{entry.description}</p>}
+        {entry.highlights && (
+          <ul className="mt-3 list-disc space-y-1.5 ps-4 text-sm leading-relaxed text-muted-foreground">
+            {entry.highlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </li>
   );

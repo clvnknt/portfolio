@@ -42,6 +42,7 @@ Run `npm run lint`, `npm test`, and `npm run build` before committing.
 - Font is Geist via `next/font` (`--font-sans`).
 - `shadcn init` rewrites `globals.css` and `layout.tsx`. If you re-run it, restore our token values and the theme script afterwards.
 - Never name the internship company behind ShiftSync anywhere on the site.
+- Boomering client work is confidential. Never name the project, the client or its industry, the vendor or platform, feature names, or coworkers on the site. Describe the work generically (see `TIMELINE` in `src/data/timeline.ts`). The source work record lives outside the repo; do not put it in `public/`.
 - Theme-dependent UI must render the same on server and client. Use `dark:` classes (see `theme-toggle.tsx`), not JS state read from `localStorage`.
 - Use `next/image` for images. Local images go in `public/images/`.
 - Static export limits: no API routes, server actions, cookies, redirects/rewrites, or default image optimization.

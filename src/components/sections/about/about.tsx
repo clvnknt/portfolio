@@ -12,13 +12,20 @@ export default function About() {
         ))}
       </div>
       <h3 className="mt-8 font-semibold">Skills</h3>
-      <ul className="mt-3 flex flex-wrap gap-2">
-        {SKILLS.map((skill) => (
-          <li key={skill}>
-            <Badge variant="outline">{skill}</Badge>
-          </li>
+      <div className="mt-4 space-y-5">
+        {SKILLS.map((group) => (
+          <div key={group.label}>
+            <h4 className="text-sm text-muted-foreground">{group.label}</h4>
+            <ul className="mt-2 flex flex-wrap gap-2">
+              {group.items.map((skill) => (
+                <li key={skill}>
+                  <Badge variant="outline">{skill}</Badge>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
+      </div>
     </Section>
   );
 }
