@@ -1,6 +1,6 @@
 import type { SkillGroup } from "@/types/skill-group";
 
-// Drawn from LinkedIn top skills, the stacks in `projects.ts`, and the work record.
+// Drawn from LinkedIn top skills, the stacks in `projects.ts`, the work record, and the AI tools used day to day.
 // Keep platform, client, and vendor names out (see CLAUDE.md on confidential work).
 export const SKILLS: SkillGroup[] = [
   {
@@ -14,6 +14,10 @@ export const SKILLS: SkillGroup[] = [
   {
     label: "Tools and delivery",
     items: ["Git", "Docker Compose", "Linux", "GitLab", "ClickUp", "Release management", "Test automation"],
+  },
+  {
+    label: "AI-assisted work",
+    items: ["AI-assisted development", "Claude Code", "Prompt writing"],
   },
   {
     label: "Working style",
