@@ -1,27 +1,134 @@
 # Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Personal portfolio site built as a single-page Angular application, styled with Tailwind CSS and Flowbite components.
 
-## Development server
+## Tech Stack
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+| Layer      | Tool                                   |
+| ---------- | -------------------------------------- |
+| Framework  | Angular 16.2 (NgModule-based)          |
+| Language   | TypeScript 5.1                         |
+| Styling    | Tailwind CSS 3.4 + Flowbite 2.5 plugin |
+| Testing    | Karma + Jasmine                        |
+| Build tool | Angular CLI 16.2                       |
 
-## Code scaffolding
+## Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Node.js** `^16.14.0` or `^18.10.0` (officially supported by Angular 16). Node 20 runs but prints an "unsupported version" warning.
+- **npm** 8+
+- **Angular CLI** (optional globally; `npx ng` works without it)
 
-## Build
+## Setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository:
 
-## Running unit tests
+   ```bash
+   git clone <repo-url> portfolio
+   cd portfolio
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Install dependencies:
 
-## Running end-to-end tests
+   ```bash
+   npm install
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Start the dev server:
 
-## Further help
+   ```bash
+   npm start
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+4. Open `http://localhost:4200/`. The app reloads on source changes.
+
+## Scripts
+
+| Command         | Description                                               |
+| --------------- | --------------------------------------------------------- |
+| `npm start`     | Run dev server (`ng serve`) on port 4200                  |
+| `npm run build` | Production build into `dist/portfolio/`                   |
+| `npm run watch` | Development build in watch mode                           |
+| `npm test`      | Run unit tests with Karma (opens Chrome on port 9876)     |
+
+## Project Structure
+
+```
+portfolio/
+├── .vscode/                    # Editor launch/tasks config (ng serve, ng test)
+├── src/
+│   ├── index.html              # Root HTML shell
+│   ├── main.ts                 # Bootstraps AppModule
+│   ├── styles.css              # Global styles + Tailwind directives
+│   ├── favicon.ico
+│   ├── assets/
+│   │   └── images/             # Static images (profile photo, etc.)
+│   └── app/
+│       ├── app.module.ts       # Declares every component
+│       ├── app-routing.module.ts
+│       ├── app.component.ts    # Root layout: stacks all page sections, theme toggle logic
+│       ├── common/             # Reusable building blocks, grouped by where they are used
+│       │   ├── main-layout/
+│       │   │   ├── navbar/     # <app-navbar>    top navigation
+│       │   │   ├── footer/     # <app-footer>    page footer
+│       │   │   ├── container/  # <app-container> card wrapper (ng-content)
+│       │   │   ├── heading/    # <app-heading>   section title (ng-content)
+│       │   │   └── hr/         # <app-hr>        section divider
+│       │   ├── about/
+│       │   │   └── timelapse/  # <app-timelapse> timeline entry (title/date/description slots)
+│       │   └── projects/
+│       │       └── image-container/  # <app-image-container [src]> project card
+│       └── components/         # Page sections, rendered in this order
+│           ├── intro/          # <app-intro>          profile photo / hero
+│           ├── about/          # <app-about>          education timeline
+│           ├── projects/       # <app-projects>       project grid
+│           ├── certifications/ # <app-certifications>
+│           └── contact/        # <app-contact>
+├── angular.json                # CLI workspace config
+├── tailwind.config.js          # Tailwind + Flowbite plugin, class-based dark mode
+├── tsconfig*.json
+└── package.json
+```
+
+### Conventions
+
+- Components use **inline templates** (`template:`), no separate `.html`/`.css` files.
+- `components/` holds page sections. `common/` holds reusable pieces, grouped by the section that owns them (`main-layout`, `about`, `projects`).
+- Every component is declared in `app.module.ts`.
+- Styling is Tailwind utility classes only. Dark mode uses the `dark` class on `<html>`.
+
+## Adding a Section
+
+1. Generate the component:
+
+   ```bash
+   npx ng generate component components/<name> --inline-template --inline-style --skip-tests=false
+   ```
+
+2. Wrap content with the shared layout pieces:
+
+   ```html
+   <app-container>
+     <app-heading id="<name>">Title</app-heading>
+     <app-hr></app-hr>
+     <!-- content -->
+   </app-container>
+   ```
+
+3. Add `<app-<name>>` to the template in `app.component.ts`.
+4. Add a navbar link with `href="#<name>"`.
+
+## Build & Deploy
+
+```bash
+npm run build
+```
+
+Output goes to `dist/portfolio/`. Serve it from any static host (GitHub Pages, Netlify, Vercel, Firebase Hosting). For a sub-path deploy, set the base href:
+
+```bash
+npx ng build --base-href /<sub-path>/
+```
+
+## Troubleshooting
+
+See [HEALING.md](./HEALING.md) for known issues and fixes.
