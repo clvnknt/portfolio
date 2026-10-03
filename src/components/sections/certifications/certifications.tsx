@@ -1,5 +1,6 @@
 import Section from "@/components/ui/section";
 import { CERTIFICATIONS } from "@/data/certifications";
+import CertificatePreview from "./certificate-preview";
 
 export default function Certifications() {
   // Hidden until there is something to show; an empty heading reads as broken.
@@ -7,12 +8,14 @@ export default function Certifications() {
 
   return (
     <Section id="certifications" heading="Certifications">
-      <ul className="space-y-3">
+      <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {CERTIFICATIONS.map((cert) => (
           <li key={cert.name}>
-            <span className="font-semibold">{cert.name}</span>
-            {cert.issuer && <span className="text-muted-foreground"> · {cert.issuer}</span>}
-            {cert.date && <span className="text-sm text-muted-foreground"> ({cert.date})</span>}
+            {cert.preview ? (
+              <CertificatePreview cert={{ ...cert, preview: cert.preview }} />
+            ) : (
+              <p className="font-semibold">{cert.name}</p>
+            )}
           </li>
         ))}
       </ul>

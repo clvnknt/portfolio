@@ -4,20 +4,24 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ## Open Issues
 
-### 1. Placeholder profile and project details
+### 1. Placeholder project details
 
-- **Symptom:** Navbar, hero `h1`, and footer show "Your Name". Projects have no repo links, live demos, or screenshots. Contact is empty.
-- **Fix:** Fill `src/data/profile.ts` (name, and optionally `email`, `linkedinUrl`, `resumeUrl` with the PDF in `public/`). Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add contact details to `src/components/sections/contact.tsx`.
+- **Symptom:** Projects have no repo links, live demos, or screenshots. Contact is empty. No `resumeUrl` in the profile.
+- **Fix:** Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add contact details to `src/components/sections/contact.tsx`. Add `resumeUrl` to `src/data/profile.ts` with the PDF in `public/`.
 
-### 2. Certifications hidden
+### 2. Incomplete timeline dates
 
-- The section renders nothing while `src/data/certifications.ts` is empty.
-
-### 3. Incomplete timeline dates
-
-- `src/data/experience.ts`: only the first entry has a date (`2015-2024`).
+- `src/data/experience.ts`: the Junior High School date (`2015-2024`) overlaps college (Aug 2020 - Jul 2024) and is probably wrong. Senior High School (`2018-2020`) is inferred from the college start date.
 
 ## Fixed
+
+### LinkedIn export with a phone number served from `public/`
+
+- `Profile.pdf` was in `public/`, so it shipped at `/Profile.pdf`. It now lives outside the repo (`~/personal/private/`). Keep personal exports out of `public/`; use a resume without a phone number for `resumeUrl`.
+
+### Hidden certifications and "Your Name" placeholder (`feat/hero-projects`)
+
+- Six certifications added in `src/data/certifications.ts`, shown as thumbnails that expand in a dialog (PDFs and WebP previews in `public/certificates/`). Name, role, email, and timeline entries filled from the LinkedIn profile.
 
 ### Placeholder Flowbite branding and hotlinked images (`feat/hero-projects`)
 
