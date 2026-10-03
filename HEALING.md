@@ -6,8 +6,8 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ### 1. Placeholder project details
 
-- **Symptom:** Projects have no repo links, live demos, or screenshots. Contact is empty. No `resumeUrl` in the profile.
-- **Fix:** Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add contact details to `src/components/sections/contact.tsx`. Add `resumeUrl` to `src/data/profile.ts` with the PDF in `public/`.
+- **Symptom:** Projects have no repo links, live demos, or screenshots. No `resumeUrl` in the profile.
+- **Fix:** Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add `resumeUrl` to `src/data/profile.ts` with the PDF in `public/`.
 
 ### 2. Draft About bio and bare experience entries
 
