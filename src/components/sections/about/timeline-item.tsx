@@ -2,24 +2,11 @@ import type { TimelineEntry } from "@/types/timeline-entry";
 
 export default function TimelineItem({ entry }: { entry: TimelineEntry }) {
   return (
-    <li className="relative mb-6 sm:mb-0">
-      <div className="flex items-center">
-        <div className="z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 ring-0 ring-white sm:ring-8 dark:bg-blue-900 dark:ring-gray-900">
-          <svg className="h-2.5 w-2.5 text-blue-800 dark:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-          </svg>
-        </div>
-        <div className="hidden h-0.5 w-full bg-gray-200 sm:flex dark:bg-gray-700" />
-      </div>
-      <div className="mt-3 sm:pe-8">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{entry.title}</h3>
-        {entry.date && (
-          <time className="mb-2 block text-sm leading-none font-normal text-gray-400 dark:text-gray-500">{entry.date}</time>
-        )}
-        {entry.description && (
-          <p className="text-base font-normal text-gray-500 dark:text-gray-400">{entry.description}</p>
-        )}
-      </div>
+    <li className="ms-6 pb-10 last:pb-0">
+      <span className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border-2 border-background bg-accent" aria-hidden="true" />
+      <h3 className="font-semibold">{entry.title}</h3>
+      {entry.date && <time className="mt-1 block text-sm text-muted">{entry.date}</time>}
+      {entry.description && <p className="mt-2 leading-relaxed text-muted">{entry.description}</p>}
     </li>
   );
 }

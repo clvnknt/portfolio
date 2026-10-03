@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import Card from "./card";
+import Container from "./container";
 
-/** Standard page section frame. `id` is the anchor target for navbar links. */
+/** Standard page section. `id` is the anchor target for navbar links. */
 export default function Section({
   id,
   heading,
@@ -12,14 +12,12 @@ export default function Section({
   children?: ReactNode;
 }) {
   return (
-    <section id={id}>
-      <Card>
-        <h1 className="text-base font-bold md:text-2xl md:font-bold lg:text-4xl lg:font-extrabold dark:text-white">
-          {heading}
-        </h1>
-        <hr className="my-4 ml-0 h-1 w-40 rounded border-0 bg-gray-200 md:my-8 md:w-56 lg:my-10 lg:w-64" />
-        {children}
-      </Card>
+    // scroll-mt clears the sticky navbar when jumping to an anchor.
+    <section id={id} className="scroll-mt-16 border-t border-border py-16 sm:py-24">
+      <Container>
+        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{heading}</h2>
+        {children && <div className="mt-8 sm:mt-10">{children}</div>}
+      </Container>
     </section>
   );
 }

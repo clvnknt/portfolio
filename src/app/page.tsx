@@ -10,14 +10,14 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="m-5 pl-5">
+      <main>
         <Intro />
         <About />
         <Projects />
         <Certifications />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

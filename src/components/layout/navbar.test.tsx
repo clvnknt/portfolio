@@ -10,17 +10,22 @@ test("menu button toggles the mobile menu", () => {
   const menu = document.getElementById("navbar-menu")!;
 
   expect(button.getAttribute("aria-expanded")).toBe("false");
-  expect(menu.className).toContain("hidden");
+  expect(menu.classList.contains("hidden")).toBe(true);
 
   fireEvent.click(button);
 
   expect(button.getAttribute("aria-expanded")).toBe("true");
-  expect(menu.className).not.toContain("hidden");
+  expect(menu.classList.contains("hidden")).toBe(false);
 });
 
 test("links point at section anchors", () => {
   render(<Navbar />);
 
-  expect(screen.getByRole("link", { name: "About" }).getAttribute("href")).toBe("#about");
-  expect(screen.getByRole("link", { name: "Projects" }).getAttribute("href")).toBe("#projects");
+  // Desktop and mobile menus each render the links.
+  for (const link of screen.getAllByRole("link", { name: "About" })) {
+    expect(link.getAttribute("href")).toBe("#about");
+  }
+  for (const link of screen.getAllByRole("link", { name: "Projects" })) {
+    expect(link.getAttribute("href")).toBe("#projects");
+  }
 });
