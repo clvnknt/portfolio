@@ -9,11 +9,16 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 - **Symptom:** Projects have no repo links, live demos, or screenshots. Contact is empty. No `resumeUrl` in the profile.
 - **Fix:** Add `repoUrl`/`liveUrl`/`image` to entries in `src/data/projects.ts` (screenshots in `public/images/projects/`). Add contact details to `src/components/sections/contact.tsx`. Add `resumeUrl` to `src/data/profile.ts` with the PDF in `public/`.
 
-### 2. Incomplete timeline dates
+### 2. Draft About bio and bare experience entries
 
-- `src/data/experience.ts`: the Junior High School (`2014-2018`) and Senior High School (`2018-2020`) dates are inferred from the college start date (Aug 2020), not from records. Confirm them.
+- `bio` in `src/data/profile.ts` is a draft built from LinkedIn and the project data. Rewrite it in your own voice.
+- `src/data/timeline.ts`: entries have no `description` yet. `auf.png` and `boomering.png` must be added to `public/images/logos/` (the test fails until they exist).
 
 ## Fixed
+
+### About page mixed school and jobs in one oldest-first timeline (`feat/about-experience-education`)
+
+- About is now a bio plus skills. Education and experience share one "Education & Experience" section, a left-to-right timeline (top to bottom on mobile) with logos or monograms as markers. Junior and senior high school entries were dropped.
 
 ### LinkedIn export with a phone number served from `public/`
 
