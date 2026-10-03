@@ -1,65 +1,46 @@
 # HEALING.md
 
-Known issues, their symptoms, and how to fix them. Add a new entry whenever a bug is found; mark it **Fixed** (with the commit) once resolved.
+Known issues, their symptoms, and how to fix them. Add a new entry whenever a bug is found; move it to **Fixed** once resolved.
 
 ## Open Issues
 
-### 1. Intro profile photo is broken
+### 1. Placeholder branding
 
-- **Symptom:** Broken image icon in the intro section.
-- **Cause:** `src/app/sections/intro/intro.component.ts` references `assets/images/test-formal.jpg`. The file on disk is `src/assets/images/me-formal.jpg`.
-- **Fix:** Change the `src` to `assets/images/me-formal.jpg`.
+- **Symptom:** Navbar shows the Flowbite logo and name. Footer says "© 2023 Flowbite™" and its links point to `#`.
+- **Fix:** Replace with your own name/logo in `src/components/layout/navbar.tsx` and `footer.tsx`. Point footer links at section anchors.
 
-### 2. Unit tests log "is not a known element"
+### 2. Placeholder content
 
-- **Symptom:** `npm test` logs errors such as `'app-container' is not a known element`.
-- **Cause:** Each spec declares only its own component, but templates use child components.
-- **Fix:** Add the child components to `declarations` in each spec, or add `schemas: [CUSTOM_ELEMENTS_SCHEMA]` to `TestBed.configureTestingModule`.
+- **Symptom:** Projects show hotlinked "coming soon" images. Certifications and Contact are empty.
+- **Fix:** Fill `src/data/projects.ts` and `src/data/certifications.ts`. Add contact details to `src/components/sections/contact.tsx`.
 
-### 3. Placeholder Flowbite branding
+### 3. Incomplete timeline dates
 
-- **Symptom:** Navbar shows the Flowbite logo and name. Footer says "© 2023 Flowbite™".
-- **Fix:** Replace with your own name/logo in `navbar.component.ts` and `footer.component.ts`. Point footer links to real section anchors.
-
-### 4. Minor code hygiene
-
-- `data/experience.ts`: the first timeline entry has a date (`2015-2024`); the other entries have none.
+- `src/data/experience.ts`: only the first entry has a date (`2015-2024`).
 
 ## Fixed
 
-### Dark mode did not apply on page load (fixed in `refactor/structure`)
+### Angular → Next.js migration (`migrate/nextjs`)
 
-- **Was:** `AppComponent` toggled icons only and never set `dark` on `<html>`. The toggle button was commented out.
-- **Fix:** `core/theme.service.ts` applies the class on startup and on toggle. The navbar button calls `theme.toggle()`.
-
-### Navbar links did not scroll to sections (fixed in `refactor/structure`)
-
-- **Was:** About/Projects links used `href="#"`. About heading had `class="#about"` instead of an id.
-- **Fix:** Every section uses `<app-section id="...">`. Navbar links point to `#about`, `#projects`, `#contact`.
-
-### Unused routing module (fixed in `refactor/structure`)
-
-- **Was:** `app-routing.module.ts` defined a route but there was no `<router-outlet>`.
-- **Fix:** Removed the routing module. Navigation is anchor-only.
-
-### Minor hygiene (fixed in `refactor/structure`)
-
-- `AppComponent` now declares `implements OnInit`.
-- Project image URLs moved to `data/projects.ts` without trailing spaces.
+- Dark mode now applies before first paint via an inline script, with no flash and no hydration mismatch.
+- Intro photo is served from `public/images/me-formal.jpg` (the Angular version pointed at a missing `test-formal.jpg`).
+- Navbar mobile menu uses React state instead of Flowbite's JS. The `flowbite` dependency is gone.
+- Unit tests run headless in jsdom (Vitest). No browser install needed.
 
 ## General Recovery Steps
 
 Use these when the app will not start or build.
 
-1. Check the Node version: `node -v`. Use Node 18 if the CLI fails (e.g. via `nvm use 18`).
+1. Check the Node version: `node -v`. Next.js 16 needs Node 20.9+.
 2. Reinstall dependencies cleanly:
 
    ```bash
-   rm -rf node_modules .angular/cache
+   rm -rf node_modules .next out
    npm ci
    ```
 
-3. Port 4200 already in use: `npx ng serve --port 4300`.
-4. Tailwind classes not applied: confirm `tailwind.config.js` `content` includes `./src/**/*.{html,ts}` and that `src/styles.css` has the `@tailwind` directives. Restart `ng serve` after config changes.
-5. Flowbite widgets (collapse, dropdown) not interactive: confirm `initFlowbite()` runs in `AppComponent.ngOnInit`.
-6. Karma cannot find Chrome (e.g. WSL/CI): set `CHROME_BIN` to a Chrome/Chromium binary and run `npx ng test --watch=false --browsers=ChromeHeadless`.
+3. Port 3000 already in use: `npm run dev -- -p 3001`.
+4. Tailwind classes not applied: confirm `src/app/globals.css` starts with `@import "tailwindcss";` and `postcss.config.mjs` loads `@tailwindcss/postcss`. Restart the dev server.
+5. Hydration warning about the `class` on `<html>`: expected and suppressed (`suppressHydrationWarning` in `layout.tsx`). The theme script adds `dark` before React hydrates.
+6. Build error about a server-only feature (cookies, API route, redirect): static export does not support it. Remove it or drop `output: "export"` and deploy to a Node host.
+7. Remote image fails in `next/image`: images are `unoptimized`, so any URL works. Check the URL itself.

@@ -1,22 +1,22 @@
 # Portfolio
 
-Personal portfolio site built as a single-page Angular application, styled with Tailwind CSS and Flowbite components.
+Personal portfolio site. A single scrolling page built with Next.js and exported as static HTML.
 
 ## Tech Stack
 
-| Layer      | Tool                                   |
-| ---------- | -------------------------------------- |
-| Framework  | Angular 16.2 (NgModule-based)          |
-| Language   | TypeScript 5.1                         |
-| Styling    | Tailwind CSS 3.4 + Flowbite 2.5 plugin |
-| Testing    | Karma + Jasmine                        |
-| Build tool | Angular CLI 16.2                       |
+| Layer     | Tool                                             |
+| --------- | ------------------------------------------------ |
+| Framework | Next.js 16 (App Router, static export)           |
+| UI        | React 19                                         |
+| Language  | TypeScript 5                                     |
+| Styling   | Tailwind CSS 4                                   |
+| Testing   | Vitest + React Testing Library (jsdom)           |
+| Linting   | ESLint 9 (`eslint-config-next`)                  |
 
 ## Prerequisites
 
-- **Node.js** `^16.14.0` or `^18.10.0` (officially supported by Angular 16). Node 20 runs but prints an "unsupported version" warning.
-- **npm** 8+
-- **Angular CLI** (optional globally; `npx ng` works without it)
+- **Node.js** 20.9 or newer
+- **npm** 10+
 
 ## Setup
 
@@ -36,90 +36,83 @@ Personal portfolio site built as a single-page Angular application, styled with 
 3. Start the dev server:
 
    ```bash
-   npm start
+   npm run dev
    ```
 
-4. Open `http://localhost:4200/`. The app reloads on source changes.
+4. Open `http://localhost:3000/`. The page reloads on source changes.
 
 ## Scripts
 
-| Command         | Description                                               |
-| --------------- | --------------------------------------------------------- |
-| `npm start`     | Run dev server (`ng serve`) on port 4200                  |
-| `npm run build` | Production build into `dist/portfolio/`                   |
-| `npm run watch` | Development build in watch mode                           |
-| `npm test`      | Run unit tests with Karma (opens Chrome on port 9876)     |
+| Command              | Description                                      |
+| -------------------- | ------------------------------------------------ |
+| `npm run dev`        | Dev server on port 3000                          |
+| `npm run build`      | Static production build into `out/`              |
+| `npm run lint`       | Run ESLint                                       |
+| `npm test`           | Run unit tests once                              |
+| `npm run test:watch` | Run unit tests in watch mode                     |
 
 ## Project Structure
 
 ```
 portfolio/
-├── .vscode/                    # Editor launch/tasks config (ng serve, ng test)
+├── public/
+│   └── images/                 # Static images, served from /images/...
 ├── src/
-│   ├── index.html              # Root HTML shell
-│   ├── main.ts                 # Bootstraps AppModule
-│   ├── styles.css              # Global styles + Tailwind directives
-│   ├── favicon.ico
-│   ├── assets/
-│   │   └── images/             # Static images (profile photo, etc.)
-│   └── app/
-│       ├── app.module.ts       # Declares every component
-│       ├── app.component.ts    # Root layout: stacks all page sections
-│       ├── core/
-│       │   └── theme.service.ts      # Dark/light mode state + persistence
-│       ├── models/             # TypeScript interfaces for content (Project, TimelineEntry, Certification)
-│       ├── data/               # Site content as typed arrays (projects, experience, certifications)
-│       ├── layout/
-│       │   ├── navbar/         # <app-navbar>  top navigation + theme toggle
-│       │   └── footer/         # <app-footer>  page footer
-│       ├── shared/             # Reusable building blocks used by several sections
-│       │   ├── section/        # <app-section heading="..."> section frame (container + heading + hr)
-│       │   ├── container/      # <app-container> card wrapper (ng-content)
-│       │   ├── heading/        # <app-heading>   section title (ng-content)
-│       │   └── hr/             # <app-hr>        section divider
-│       └── sections/           # Page sections, rendered in this order
-│           ├── intro/          # <app-intro>   profile photo / hero
-│           ├── about/          # <app-about>   education timeline
-│           │   └── timeline-item/      # <app-timeline-item [entry]>
-│           ├── projects/       # <app-projects> project grid
-│           │   └── image-container/    # <app-image-container [src]> project card
-│           ├── certifications/ # <app-certifications>
-│           └── contact/        # <app-contact>
-├── angular.json                # CLI workspace config
-├── tailwind.config.js          # Tailwind + Flowbite plugin, class-based dark mode
-├── tsconfig*.json
-└── package.json
+│   ├── app/
+│   │   ├── layout.tsx          # <html> shell, metadata, theme init script
+│   │   ├── page.tsx            # The page: stacks all sections in order
+│   │   ├── globals.css         # Tailwind import + dark-mode variant
+│   │   └── favicon.ico
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── navbar.tsx      # Client component: mobile menu + ThemeToggle
+│   │   │   ├── theme-toggle.tsx
+│   │   │   └── footer.tsx
+│   │   ├── ui/                 # Reusable building blocks
+│   │   │   ├── section.tsx     # <Section id heading> frame: card + heading + divider
+│   │   │   └── card.tsx
+│   │   └── sections/           # Page sections, rendered in this order
+│   │       ├── intro.tsx
+│   │       ├── about/          # about.tsx + timeline-item.tsx
+│   │       ├── projects/       # projects.tsx + image-container.tsx
+│   │       ├── certifications.tsx
+│   │       └── contact.tsx
+│   ├── data/                   # Site content as typed arrays
+│   ├── types/                  # Interfaces for the content in data/
+│   └── lib/
+│       └── theme.ts            # Dark-mode init script + toggle
+├── next.config.ts              # output: "export", unoptimized images
+├── vitest.config.mts
+├── eslint.config.mjs
+├── postcss.config.mjs
+└── tsconfig.json               # "@/*" maps to src/*
 ```
 
 ### Conventions
 
-- Components use **inline templates** (`template:`), no separate `.html`/`.css` files.
-- **Content lives in `data/`**, typed by `models/`. Sections loop over it with `*ngFor`. To add a project, timeline entry, or certification, edit the matching file in `data/`. No template change needed.
-- `sections/` holds page sections. A component used by only one section lives inside that section's folder. Components used by several sections live in `shared/`. Navbar and footer live in `layout/`.
-- App-wide services live in `core/`.
-- Every component is declared in `app.module.ts`.
-- Styling is Tailwind utility classes only. Dark mode uses the `dark` class on `<html>`, managed by `ThemeService`.
-- Navigation is in-page anchors (`href="#id"`). There is no router.
+- **Content lives in `src/data/`**, typed by `src/types/`. To add a project, timeline entry, or certification, edit the matching data file. No component change needed.
+- Components are **Server Components by default**. Add `"use client"` only when a component needs state or event handlers (currently `navbar.tsx` and `theme-toggle.tsx`).
+- A component used by one section lives in that section's folder. Components used by several sections live in `components/ui/`.
+- File names are kebab-case. Components are default exports in PascalCase.
+- Import from `src/` with the `@/` alias.
+- Styling is Tailwind utility classes only. Dark mode is the `dark` class on `<html>`.
+- Tests sit next to the code they test as `*.test.ts(x)`.
 
 ## Adding a Section
 
-1. Generate the component:
+1. Create `src/components/sections/<name>.tsx`:
 
-   ```bash
-   npx ng generate component sections/<name> --inline-template --inline-style
+   ```tsx
+   import Section from "@/components/ui/section";
+
+   export default function Name() {
+     return <Section id="<name>" heading="Title">{/* content */}</Section>;
+   }
    ```
 
-2. Wrap content in the shared section frame. The `id` is the scroll target:
-
-   ```html
-   <app-section id="<name>" heading="Title">
-     <!-- content -->
-   </app-section>
-   ```
-
-3. If the section shows a list, add a model in `models/` and the content in `data/`.
-4. Add `<app-<name>>` to the template in `app.component.ts`.
-5. Add a navbar link with `href="#<name>"`.
+2. If the section shows a list, add a type in `src/types/` and the content in `src/data/`.
+3. Render it in `src/app/page.tsx`.
+4. Add a link to `src/data/nav-links.ts` with `href: "#<name>"`.
 
 ## Build & Deploy
 
@@ -127,11 +120,7 @@ portfolio/
 npm run build
 ```
 
-Output goes to `dist/portfolio/`. Serve it from any static host (GitHub Pages, Netlify, Vercel, Firebase Hosting). For a sub-path deploy, set the base href:
-
-```bash
-npx ng build --base-href /<sub-path>/
-```
+Output goes to `out/`. It is plain HTML/CSS/JS, so any static host works (Vercel, Netlify, GitHub Pages, Cloudflare Pages). For a sub-path deploy (e.g. GitHub Pages project site), set `basePath` in `next.config.ts`.
 
 ## Troubleshooting
 
