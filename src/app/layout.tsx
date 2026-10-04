@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
@@ -13,9 +14,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const TITLE = "Calvin Kent Pamandanan | Junior Web Developer";
+const DESCRIPTION =
+  "Portfolio of Calvin Kent Pamandanan, a junior web developer building Laravel, Angular, and Next.js apps.";
+
+// The share image comes from the opengraph-image / twitter-image files in this folder.
 export const metadata: Metadata = {
-  title: "Calvin Kent Pamandanan | Junior Web Developer",
-  description: "Portfolio of Calvin Kent Pamandanan, a junior web developer building Laravel, Angular, and Next.js apps.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", url: "/", siteName: "Calvin Kent Pamandanan", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
