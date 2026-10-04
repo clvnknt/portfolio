@@ -16,6 +16,7 @@ test("renders the name as the page's h1 and links to projects and the profiles",
   expect(screen.getByRole("link", { name: /GitHub/ }).getAttribute("href")).toBe(PROFILE.githubUrl);
   expect(screen.getByRole("link", { name: /LinkedIn/ }).getAttribute("href")).toBe(PROFILE.linkedinUrl);
   expect(screen.getByRole("link", { name: /Email/ }).getAttribute("href")).toBe(`mailto:${PROFILE.email}`);
+  expect(screen.getByRole("link", { name: PROFILE.phone! }).getAttribute("href")).toBe("tel:+639982545122");
 });
 
 test("links to the resume PDF, which exists in public/", () => {

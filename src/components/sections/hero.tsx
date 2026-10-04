@@ -1,4 +1,4 @@
-import { ArrowDown, FileText } from "lucide-react";
+import { ArrowDown, FileText, Phone } from "lucide-react";
 import Image from "next/image";
 import GithubIcon from "@/components/icons/github-icon";
 import GmailIcon from "@/components/icons/gmail-icon";
@@ -49,6 +49,16 @@ export default function Hero() {
               <li>
                 <a className="inline-flex items-center gap-2 transition-colors hover:text-foreground" href={`mailto:${PROFILE.email}`}>
                   <GmailIcon className="size-4" /> Email
+                </a>
+              </li>
+            )}
+            {PROFILE.phone && (
+              <li>
+                <a
+                  className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
+                  href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}
+                >
+                  <Phone className="size-4" /> {PROFILE.phone}
                 </a>
               </li>
             )}

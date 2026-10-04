@@ -26,7 +26,7 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ### LinkedIn export with a phone number served from `public/`
 
-- `Profile.pdf` was in `public/`, so it shipped at `/Profile.pdf`. It now lives outside the repo (`~/personal/private/`). Keep personal exports out of `public/`; use a resume without a phone number for `resumeUrl`.
+- `Profile.pdf` was in `public/`, so it shipped at `/Profile.pdf`. It now lives outside the repo (`~/personal/private/`). Keep personal exports out of `public/`. The public resume PDF now includes the phone number on purpose.
 
 ### Hidden certifications and "Your Name" placeholder (`feat/hero-projects`)
 
