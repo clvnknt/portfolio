@@ -16,7 +16,9 @@ export const PROJECTS: Project[] = [
     title: "ShiftSync",
     summary:
       "Shift scheduling and time tracking: employees clock in and out, and scheduled jobs compute hours, tardiness, and overtime.",
-    status: "in-progress",
+    context: "Internship project",
+    year: "2024",
+    status: "complete",
     stack: ["Laravel 10", "PHP", "MySQL", "Sanctum", "Angular 16", "Angular Material"],
   },
   {
