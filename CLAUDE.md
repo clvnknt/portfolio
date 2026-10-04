@@ -22,6 +22,10 @@ npm test             # Vitest, single run
 
 Run `npm run lint`, `npm test`, and `npm run build` before committing.
 
+## Deploying
+
+Hosted on Vercel from `main` (Next.js preset; the static export in `out/` needs no extra config). `src/lib/site.ts` builds the absolute site URL for the sitemap, robots.txt, and social-card metadata: it uses `NEXT_PUBLIC_SITE_URL` if set, else Vercel's production URL, else localhost. Set `NEXT_PUBLIC_SITE_URL` in Vercel once there is a custom domain. The share image is `src/app/opengraph-image.png` (copied to `twitter-image.png`), 1200x630.
+
 ## Architecture
 
 - `src/app/page.tsx` is the whole site. It renders: Navbar, Hero, Education & Experience, Projects, Skills & Certifications, Footer. There is no Contact section; the hero buttons (email, LinkedIn, GitHub) are the contact path.
