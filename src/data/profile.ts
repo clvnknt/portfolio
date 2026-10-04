@@ -9,7 +9,8 @@ export const PROFILE: Profile = {
   avatar: { src: "/images/me-formal.jpg", alt: "Profile photo" },
   githubUrl: "https://github.com/clvnknt",
   email: "p.calvinkent@gmail.com",
+  phone: "+63 998 254 5122",
   linkedinUrl: "https://www.linkedin.com/in/clvnknt/",
-  // Website copy without the phone number. It is a built file: redo it when the content changes.
+  // The resume is a built file: redo it when the content changes.
   resumeUrl: "/Calvin-Kent-Pamandanan-Resume.pdf",
 };

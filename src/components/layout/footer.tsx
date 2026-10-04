@@ -1,3 +1,4 @@
+import { Phone } from "lucide-react";
 import GithubIcon from "@/components/icons/github-icon";
 import GmailIcon from "@/components/icons/gmail-icon";
 import LinkedinIcon from "@/components/icons/linkedin-icon";
@@ -17,6 +18,11 @@ export default function Footer() {
           {PROFILE.email && (
             <a href={`mailto:${PROFILE.email}`} aria-label="Email" className={LINK_CLASS}>
               <GmailIcon className="size-5" />
+            </a>
+          )}
+          {PROFILE.phone && (
+            <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`} aria-label="Phone" className={LINK_CLASS}>
+              <Phone className="size-5" />
             </a>
           )}
           {PROFILE.linkedinUrl && (
