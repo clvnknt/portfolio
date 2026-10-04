@@ -22,8 +22,8 @@ test("links point at section anchors", () => {
   render(<Navbar />);
 
   // Desktop and mobile menus each render the links.
-  for (const link of screen.getAllByRole("link", { name: "About" })) {
-    expect(link.getAttribute("href")).toBe("#about");
+  for (const link of screen.getAllByRole("link", { name: "Experience" })) {
+    expect(link.getAttribute("href")).toBe("#experience");
   }
   for (const link of screen.getAllByRole("link", { name: "Projects" })) {
     expect(link.getAttribute("href")).toBe("#projects");

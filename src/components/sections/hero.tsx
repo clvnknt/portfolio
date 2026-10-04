@@ -1,4 +1,4 @@
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowDown, FileText } from "lucide-react";
 import Image from "next/image";
 import GithubIcon from "@/components/icons/github-icon";
 import GmailIcon from "@/components/icons/gmail-icon";
@@ -7,58 +7,87 @@ import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { PROFILE } from "@/data/profile";
 
+const [firstNames, ...rest] = PROFILE.name.split(" ");
+const lastName = rest.pop() ?? "";
+const given = [firstNames, ...rest].join(" ");
+
 export default function Hero() {
   return (
-    <section id="home" className="scroll-mt-16 py-16 sm:py-24">
-      <Container className="flex flex-col-reverse items-center gap-10 md:flex-row md:justify-between">
-        <div className="max-w-xl text-center md:text-left">
-          <p className="text-sm font-medium tracking-wide text-primary uppercase">{PROFILE.role}</p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">{PROFILE.name}</h1>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{PROFILE.tagline}</p>
+    <section id="home" className="relative scroll-mt-16 overflow-hidden py-16 sm:py-24">
+      <div className="bg-dots absolute inset-0 -z-10" aria-hidden="true" />
+      <div className="bg-glow absolute inset-0 -z-10" aria-hidden="true" />
 
-          <div className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
-            <Button size="lg" asChild>
-              <a href="#projects">
-                View projects <ArrowRight data-icon="inline-end" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href={PROFILE.githubUrl} target="_blank" rel="noreferrer">
-                <GithubIcon data-icon="inline-start" className="size-4" /> GitHub
-              </a>
-            </Button>
+      <Container className="flex flex-col-reverse items-start gap-12 md:flex-row md:items-center md:justify-between">
+        <div className="max-w-2xl">
+          <p className="font-mono text-xs tracking-widest text-primary uppercase">
+            {PROFILE.role} · Central Luzon, PH
+          </p>
+          <h1 className="mt-5 text-5xl leading-[0.95] font-semibold tracking-tight sm:text-7xl">
+            {given} <br />
+            {lastName}
+            <span className="text-primary">.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">{PROFILE.tagline}</p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             {PROFILE.resumeUrl && (
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" asChild>
                 <a href={PROFILE.resumeUrl} target="_blank" rel="noreferrer">
                   <FileText data-icon="inline-start" /> Resume
                 </a>
               </Button>
             )}
+            <Button size="lg" variant="outline" asChild>
+              <a href="#projects">
+                See my work <ArrowDown data-icon="inline-end" />
+              </a>
+            </Button>
+          </div>
+
+          <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
             {PROFILE.email && (
-              <Button size="lg" variant="outline" asChild>
-                <a href={`mailto:${PROFILE.email}`}>
-                  <GmailIcon data-icon="inline-start" className="size-4" /> Email
+              <li>
+                <a className="inline-flex items-center gap-2 transition-colors hover:text-foreground" href={`mailto:${PROFILE.email}`}>
+                  <GmailIcon className="size-4" /> Email
                 </a>
-              </Button>
+              </li>
             )}
             {PROFILE.linkedinUrl && (
-              <Button size="lg" variant="outline" asChild>
-                <a href={PROFILE.linkedinUrl} target="_blank" rel="noreferrer">
-                  <LinkedinIcon data-icon="inline-start" className="size-4" /> LinkedIn
+              <li>
+                <a
+                  className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
+                  href={PROFILE.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <LinkedinIcon className="size-4" /> LinkedIn
                 </a>
-              </Button>
+              </li>
             )}
-          </div>
+            <li>
+              <a
+                className="inline-flex items-center gap-2 transition-colors hover:text-foreground"
+                href={PROFILE.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <GithubIcon className="size-4" /> GitHub
+              </a>
+            </li>
+          </ul>
         </div>
 
-        <Image
-          className="size-40 shrink-0 rounded-full object-cover ring-4 ring-border sm:size-48"
-          src={PROFILE.avatar.src}
-          width={192}
-          height={192}
-          alt={PROFILE.avatar.alt}
-          priority
-        />
+        <div className="relative shrink-0">
+          <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border border-primary/50" aria-hidden="true" />
+          <Image
+            className="relative size-44 rounded-3xl bg-card object-cover sm:size-72"
+            src={PROFILE.avatar.src}
+            width={288}
+            height={288}
+            alt={PROFILE.avatar.alt}
+            priority
+          />
+        </div>
       </Container>
     </section>
   );

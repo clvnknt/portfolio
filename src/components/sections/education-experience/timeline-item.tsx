@@ -35,9 +35,11 @@ export default function TimelineItem({ entry }: { entry: TimelineEntry }) {
         )}
       </div>
       <div className="min-w-0">
-        <h3 className="font-semibold">{entry.title}</h3>
-        <p className="text-muted-foreground">{entry.organization}</p>
-        {entry.date && <time className="mt-1 block text-sm text-muted-foreground">{entry.date}</time>}
+        <h3 className="leading-snug font-semibold">{entry.title}</h3>
+        <p className="text-sm text-muted-foreground">{entry.organization}</p>
+        {entry.date && (
+          <time className="mt-1.5 block font-mono text-xs tracking-wide text-primary uppercase">{entry.date}</time>
+        )}
         {entry.description && <p className="mt-2 leading-relaxed text-muted-foreground">{entry.description}</p>}
         {entry.highlights && (
           <ul className="mt-3 list-disc space-y-1.5 ps-4 text-sm leading-relaxed text-muted-foreground">

@@ -6,7 +6,6 @@ export interface Project {
   year?: string;
   status: "complete" | "in-progress";
   stack: string[];
-  highlights: string[];
   /** Screenshot under public/images/projects/. */
   image?: { src: string; alt: string };
   repoUrl?: string;

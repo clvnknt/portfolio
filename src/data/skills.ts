@@ -13,7 +13,11 @@ export const SKILLS: SkillGroup[] = [
   },
   {
     label: "Tools and delivery",
-    items: ["Git", "Docker Compose", "Linux", "GitLab", "ClickUp", "Release management", "Test automation"],
+    items: ["Git", "GitLab", "Docker Compose", "Linux", "Release management", "Test automation"],
+  },
+  {
+    label: "Project and collaboration",
+    items: ["Jira", "ClickUp", "Slack", "Microsoft Teams"],
   },
   {
     label: "AI-assisted work",
