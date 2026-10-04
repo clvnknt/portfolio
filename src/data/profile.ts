@@ -1,6 +1,5 @@
 import type { Profile } from "@/types/profile";
 
-// TODO(owner): add `resumeUrl` (drop a resume PDF in public/) to show its button in the hero.
 // TODO(owner): `bio` is a draft built from LinkedIn and the project data. Rewrite it in your own voice.
 export const PROFILE: Profile = {
   name: "Calvin Kent Pamandanan",
@@ -15,4 +14,6 @@ export const PROFILE: Profile = {
   githubUrl: "https://github.com/clvnknt",
   email: "p.calvinkent@gmail.com",
   linkedinUrl: "https://www.linkedin.com/in/clvnknt/",
+  // Website copy without the phone number. It is a built file: redo it when the content changes.
+  resumeUrl: "/Calvin-Kent-Pamandanan-Resume.pdf",
 };
