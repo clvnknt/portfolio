@@ -11,10 +11,14 @@ Known issues, their symptoms, and how to fix them. Add a new entry whenever a bu
 
 ### 2. Draft About bio and bare experience entries
 
-- `bio` in `src/data/profile.ts` is a draft built from LinkedIn and the project data. Rewrite it in your own voice.
+- `tagline` in `src/data/profile.ts` is a draft built from LinkedIn and the work record. Rewrite it in your own voice.
 - `src/data/timeline.ts`: the AUF entry has no `description` or `highlights` yet.
 
 ## Fixed
+
+### Generic, long, repetitive layout (`feat/design-refresh`)
+
+- Removed the About section (its bio repeated the timeline and certifications). Skills and certifications share one compact section; projects are rows without bullet lists; certifications are small rows that still open a full-size view. New warm palette, Geist Mono labels, and a label-rail section layout. The page is about a third shorter.
 
 ### About page mixed school and jobs in one oldest-first timeline (`feat/about-experience-education`)
 

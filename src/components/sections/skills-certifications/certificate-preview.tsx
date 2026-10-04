@@ -15,7 +15,7 @@ import type { Certification, CertificationPreview } from "@/types/certification"
 
 type Props = { cert: Certification & { preview: CertificationPreview } };
 
-/** Thumbnail of a certificate that expands to a full-size view on click. */
+/** One certificate as a compact row (small thumbnail, name, issuer and date) that expands to a full-size view. */
 export default function CertificatePreview({ cert }: Props) {
   const { name, issuer, date, file, preview } = cert;
   const alt = `${name} certificate${issuer ? ` from ${issuer}` : ""}`;
@@ -27,22 +27,22 @@ export default function CertificatePreview({ cert }: Props) {
         <button
           type="button"
           aria-label={`View ${name} certificate`}
-          className="group flex w-full flex-col gap-3 rounded-lg text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="group -mx-2 flex w-[calc(100%+1rem)] items-center gap-4 rounded-lg p-2 text-left outline-none transition-colors hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50"
         >
-          <div className="aspect-4/3 overflow-hidden rounded-lg border border-border bg-card transition-colors group-hover:border-ring">
+          <span className="h-12 w-16 shrink-0 overflow-hidden rounded-md border border-border bg-logo-surface transition-colors group-hover:border-primary">
             <Image
               src={preview.src}
               alt=""
               width={preview.width}
               height={preview.height}
-              sizes="(min-width: 1024px) 320px, (min-width: 640px) 45vw, 90vw"
+              sizes="64px"
               className="size-full object-cover object-top"
             />
-          </div>
-          <div>
-            <p className="font-semibold">{name}</p>
-            {meta && <p className="text-sm text-muted-foreground">{meta}</p>}
-          </div>
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm leading-snug font-medium">{name}</span>
+            {meta && <span className="mt-0.5 block text-xs text-muted-foreground">{meta}</span>}
+          </span>
         </button>
       </DialogTrigger>
       <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-4xl">

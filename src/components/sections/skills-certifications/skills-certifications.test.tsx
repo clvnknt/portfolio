@@ -3,12 +3,23 @@ import { join } from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
 import { CERTIFICATIONS } from "@/data/certifications";
-import Certifications from "./certifications";
+import { SKILLS } from "@/data/skills";
+import SkillsCertifications from "./skills-certifications";
 
 afterEach(cleanup);
 
-test("shows a thumbnail button for every certification", () => {
-  render(<Certifications />);
+test("lists every skill group with its items", () => {
+  render(<SkillsCertifications />);
+
+  expect(screen.getByRole("heading", { level: 2, name: "Skills & Certifications" })).toBeTruthy();
+  for (const group of SKILLS) {
+    expect(screen.getByText(group.label)).toBeTruthy();
+    expect(screen.getByText(group.items.join(" · "))).toBeTruthy();
+  }
+});
+
+test("shows a row button for every certification", () => {
+  render(<SkillsCertifications />);
 
   for (const cert of CERTIFICATIONS) {
     expect(screen.getByRole("button", { name: `View ${cert.name} certificate` })).toBeTruthy();
@@ -16,14 +27,13 @@ test("shows a thumbnail button for every certification", () => {
 });
 
 test("clicking a certificate expands it with a link to the PDF", () => {
-  render(<Certifications />);
+  render(<SkillsCertifications />);
   const cert = CERTIFICATIONS[0];
 
   expect(screen.queryByRole("dialog")).toBeNull();
   fireEvent.click(screen.getByRole("button", { name: `View ${cert.name} certificate` }));
 
-  const dialog = screen.getByRole("dialog", { name: cert.name });
-  expect(dialog).toBeTruthy();
+  expect(screen.getByRole("dialog", { name: cert.name })).toBeTruthy();
   expect(screen.getByRole("img", { name: new RegExp(cert.name) }).getAttribute("src")).toContain(
     "certiport-cybersecurity.webp",
   );
